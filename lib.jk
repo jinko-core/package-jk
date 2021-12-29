@@ -1,0 +1,10 @@
+func int_add(lhs: int, rhs: int) -> int{
+    lhs + rhs
+}
+
+test add() {
+    // FIXME: Remove this
+    incl assert;
+
+    assert_eq(int_add(1, 2), 1 + 2);
+}

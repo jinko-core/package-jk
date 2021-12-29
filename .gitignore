@@ -1,0 +1,2 @@
+# Ignore jinko dependencies and build files
+.jinko/

@@ -1,0 +1,6 @@
+mut template = package("template");
+template.jinko_version("0.3.0")
+
+oslib = dependency("jinko-core/oslib-jk").version("0.0.1");
+
+template.depends_on(oslib)

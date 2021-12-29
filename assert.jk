@@ -1,0 +1,9 @@
+// FIXME: Remove this once we have a proper assert library
+func assert_eq(lhs: int, rhs: int) {
+    if lhs == rhs {
+        println_err("[OK] {jinko.caller()}:{jinko.line()} => {lhs.to_string()} == {rhs.to_string()}");
+    } else {
+        println_err("[KO] {jinko.caller()}:{jinko.line()} => {lhs.to_string()} != {rhs.to_string()}");
+    }
+}
+
