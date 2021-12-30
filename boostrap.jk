@@ -2,8 +2,8 @@
 // properly. However, since we *are* the package manager, we cannot use the
 // package manager to fetch them. Instead, use a git submodule for these two
 // and fetch a stable version when configuring the package manager
-incl gitko_minimum_version as old_gitko
-incl oslib_minimum_version as old_oslib
+incl gitko_bootstrap as old_gitko
+incl oslib_bootstrap as old_oslib
 
 func bootstrap() {
 }
