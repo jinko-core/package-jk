@@ -1,10 +1,48 @@
-func int_add(lhs: int, rhs: int) -> int{
-    lhs + rhs
+// FIXME: How do we bootstrap this? Since the package library needs these
+// two libraries in order to download packages?
+incl gitko
+incl oslib
+
+// FIXME: Use Maybe[String] for version field
+// The package's name should be of the form <author>/<pkg> and should
+// correspond to a github repository
+type Package(name: string, version: string);
+
+func package(name: string) -> Package {
+	Package(name: name, version: "")
 }
 
-test add() {
-    // FIXME: Remove this
-    incl assert;
+func local_path(pkg: Package) -> string {
+	".jinko/{pkg.name}-{pkg.version}"
+}
 
-    assert_eq(int_add(1, 2), 1 + 2);
+func pkg_log(s: string) {
+	println_err("jinko-pkg > {s}");
+}
+
+func fetch(pkg: Package) -> Package {
+	if pkg.version.is_empty() {
+		pkg_log("Fetching latest version of package `{pkg.name}`");
+	} else {
+		pkg_log("Fetching package `{pkg.name}` version {pkg.version}");
+	};
+
+	repository("https://github.com/{pkg.name}").to_path(pkg.local_path()).clone();
+
+	// FIXME: Checkout the correct version
+
+	pkg
+}
+
+func build(pkg: Package) -> Package {
+	// FIXME: Use `jinko --build` once implemented
+	// FIXME: Check if file exists before running this
+	shell("jinko {pkg.local_path()}/build.jk");
+
+	pkg
+}
+
+test chain_actions() {
+	Package(name: "jinko-core/gitko", version: "").fetch();
+	package("jinko-core/oslib").fetch().build();
 }

@@ -1,6 +1,8 @@
-# lib-template
+# package-jk
 
-This repository is a template library for creating jinko libraries yourself. Ideally, it
-should contain a CI, running a proper `jinko` github action and running the tests present
-in the library. It should also contain a basic code example to get you started on writing
-your library.
+[jinko](https://github.com/jinko-core/jinko)'s package manager library.
+
+This library is responsible for declaring jinko packages, fetching dependencies
+and executing build scripts.
+
+Ideally, it will be included by default when running `jinko --build`.
