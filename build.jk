@@ -1,22 +1,17 @@
-// Both of these libraries are required for the package manager to run
-// properly. However, since we *are* the package manager, we cannot use the
-// package manager to fetch them. Instead, use a git submodule for these two
-// and fetch a stable version when configuring the package manager
-incl gitko_bootstrap as old_gitko
-
-// FIXME: We need to use and add proper minimum versions for these two libraries
-// once we have releases for them
-min_gitko_version = "";
+incl bootstrap
+incl oslib_bootstrap
 
 func bootstrap() {
-	// FIXME: Add better build function
-	// shell("jinko gitko_bootstrap/build.jk");
+	bootstrap_log("building old gitko package");
 
-	// gitko = repository("https://github.com/jinko-core/gitko").to_path(".jinko/gitko");
+	// FIXME: Add better build function...
+	shell("cd gitko_bootstrap && jinko build.jk && cd ..");
 
-	// // FIXME: Use versions here and check them out
+	bootstrap_log("creating local `.jinko` package path");
+	shell("mkdir .jinko || true");
 
-	// gitko.clone();
-
-	// shell("jinko .jinko/gitko/build.jk");
+	bootstrap_log("starting second stage of bootstrapping");
+	shell("jinko build-stage1.jk");
 }
+
+bootstrap();

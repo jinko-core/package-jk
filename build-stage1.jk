@@ -1,0 +1,42 @@
+// Both of these libraries are required for the package manager to run
+// properly. However, since we *are* the package manager, we cannot use the
+// package manager to fetch them. Instead, use a git submodule for these two
+// and fetch a stable version when configuring the package manager
+incl gitko_bootstrap
+
+incl bootstrap
+
+// FIXME: We need to use and add proper minimum versions for these two libraries
+// once we have releases for them
+min_gitko_version = "";
+
+func fetch_new_lib(pkg: Git, pkg_name: string) -> bool {
+	bootstrap_log("cloning new {pkg_name} package");
+	if pkg.clone() {
+		bootstrap_log("building new {pkg_name} package");
+		// shell("cd .jinko/gitko && jinko build.jk && ../../");
+		true
+	} else {
+		bootstrap_log("cloning new {pkg_name} failed");
+		false
+	}
+}
+
+func finish_bootstrap() -> bool {
+	gitko = repository("https://github.com/jinko-core/gitko").to_path(".jinko/gitko");
+	oslib = repository("https://github.com/jinko-core/oslib-jk").to_path(".jinko/oslib");
+
+	mut retval = true;
+
+	if fetch_new_lib(gitko, "gitko") {
+		retval = false;
+	};
+
+	if fetch_new_lib(oslib, "oslib") {
+		retval = false;
+	};
+
+	retval
+}
+
+finish_bootstrap();

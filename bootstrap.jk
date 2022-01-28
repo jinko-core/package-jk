@@ -1,0 +1,8 @@
+// FIXME: Remove this
+ext func usleep(u_seconds: int);
+
+func bootstrap_log(s: string) {
+	println_err("bootstrap > {s}");
+
+	usleep(250);
+}
