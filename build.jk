@@ -1,6 +1,22 @@
-mut template = package("template");
-template.jinko_version("0.3.0")
+// Both of these libraries are required for the package manager to run
+// properly. However, since we *are* the package manager, we cannot use the
+// package manager to fetch them. Instead, use a git submodule for these two
+// and fetch a stable version when configuring the package manager
+incl gitko_bootstrap as old_gitko
 
-oslib = dependency("jinko-core/oslib-jk").version("0.0.1");
+// FIXME: We need to use and add proper minimum versions for these two libraries
+// once we have releases for them
+min_gitko_version = "";
 
-template.depends_on(oslib)
+func bootstrap() {
+	// FIXME: Add better build function
+	// shell("jinko gitko_bootstrap/build.jk");
+
+	// gitko = repository("https://github.com/jinko-core/gitko").to_path(".jinko/gitko");
+
+	// // FIXME: Use versions here and check them out
+
+	// gitko.clone();
+
+	// shell("jinko .jinko/gitko/build.jk");
+}

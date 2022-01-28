@@ -1,5 +1,3 @@
-incl bootstrap
-
 // FIXME: How do we bootstrap this? Since the package library needs these
 // two libraries in order to download packages?
 incl gitko
@@ -37,6 +35,8 @@ func fetch(pkg: Package) -> Package {
 }
 
 func build(pkg: Package) -> Package {
+	pkg_log("building {pkg.name}...\r");
+
 	// FIXME: Use `jinko --build` once implemented
 	// FIXME: Check if file exists before running this
 	shell("jinko {pkg.local_path()}/build.jk");
