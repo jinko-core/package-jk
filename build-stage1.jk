@@ -13,8 +13,6 @@ min_gitko_version = "";
 func fetch_new_lib(pkg: Git, pkg_name: string) -> bool {
 	bootstrap_log("cloning new {pkg_name} package");
 	if pkg.clone() {
-		bootstrap_log("building new {pkg_name} package");
-		// shell("cd .jinko/gitko && jinko build.jk && ../../");
 		true
 	} else {
 		bootstrap_log("cloning new {pkg_name} failed");
@@ -28,13 +26,18 @@ func finish_bootstrap() -> bool {
 
 	mut retval = true;
 
+	if fetch_new_lib(oslib, "oslib") {
+		retval = false;
+	};
 	if fetch_new_lib(gitko, "gitko") {
 		retval = false;
 	};
 
-	if fetch_new_lib(oslib, "oslib") {
-		retval = false;
-	};
+	bootstrap_log("transferring oslib to new gitko library");
+	shell("cp -r .jinko/oslib .jinko/gitko/");
+
+	bootstrap_log("building new gitko library");
+	shell("cd .jinko/ && jinko gitko/build.jk && cd ../");
 
 	retval
 }
