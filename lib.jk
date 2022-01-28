@@ -1,3 +1,5 @@
+incl bootstrap
+
 // FIXME: How do we bootstrap this? Since the package library needs these
 // two libraries in order to download packages?
 incl gitko

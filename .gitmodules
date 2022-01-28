@@ -1,0 +1,6 @@
+[submodule "gitko_bootstrap"]
+	path = gitko_bootstrap
+	url = https://github.com/jinko-core/gitko
+[submodule "oslib_bootstrap"]
+	path = oslib_bootstrap
+	url = https://github.com/jinko-core/oslib-jk
